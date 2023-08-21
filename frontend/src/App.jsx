@@ -1,8 +1,8 @@
 import { Routes, Route } from 'react-router-dom'
-import Home from './pages/Home'
-import CreateTask from './pages/CreateTask'
+import Home from './views/Home'
+import CreateTask from './views/CreateTask'
 import NavBar from './components/NavBar'
-import UpdateTask from './pages/Updatetask'
+import UpdateTask from './views/Updatetask'
 
 function App() {
   
@@ -13,7 +13,7 @@ function App() {
       <Routes>
           <Route path='/' element={<Home />}></Route>
           <Route path='/createtask' element={<CreateTask />}></Route>
-          <Route path='/updatetask' element={<UpdateTask />}></Route>
+          <Route path='/updatetask/:id' element={<UpdateTask />}></Route>
       </Routes>
     </>
   )

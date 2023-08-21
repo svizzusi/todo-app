@@ -1,42 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BsTrash } from 'react-icons/bs'
 import { AiOutlineEdit } from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 
 
 const Home = () => {
 
-const navigate = useNavigate();
+    const navigate = useNavigate();
 
-    const [tasks, setTasks] = useState(
-        [
-            {
-                taskId: 1,
-                taskName: "Read",
-                taskDate: 'August, 19, 2023',
-                taskTime: 20
-            },
-            {
-                taskId: 2,
-                taskName: "Journal",
-                taskDate: 'August, 19, 2023',
-                taskTime: 21
-            },
-            {
-                taskId: 3,
-                taskName: "Gym",
-                taskDate: 'August, 19, 2023',
-                taskTime: 2
-            },
-            {
-                taskId: 4,
-                taskName: "Code",
-                taskDate: 'August, 19, 2023',
-                taskTime: 9
-            }
-        ]
-    );
+    const [tasks, setTasks] = useState([]);
+    useEffect(() => {
+        axios.get('http://localhost:3000/')
+        .then(response => setTasks(response.data))
+        .catch(err => console.log(err))
+    }, [])
   return (
     <>
         <section className="flex flex-col gap-5 justify-between items-center">
@@ -46,9 +25,10 @@ const navigate = useNavigate();
                 return (
                     <article 
                         className='w-2/4 h-36 mx-auto mb-5 flex justify-between items-center gap-5 p-8 border-2 border-black rounded-lg shadow-2xl' 
-                        key={task.taskId}>
+                        key={task._id}>
                         <div>
                             <div className='text-lg font-bold'>{task.taskName}</div>
+                            <div className='text-lg text-slate-500'>{task.taskDate}</div>
                             <div className='text-lg text-slate-500'>{task.taskTime}</div>
                         </div>
                         <div>
