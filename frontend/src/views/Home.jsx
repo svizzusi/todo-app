@@ -33,7 +33,7 @@ const Home = () => {
                         </div>
                         <div>
                             <button 
-                                onClick={() => navigate('/updatetask')} 
+                                onClick={() => navigate(`/updatetask/${task._id}`)} 
                                 className="text-xl p-2 text-blue-400 hover:text-blue-200"
                                 ><AiOutlineEdit />
                             </button>

@@ -29,8 +29,8 @@ const CreateTask = () => {
   const navigate = useNavigate()
 
   const [taskName, setTaskName] = useState('');
-  const [taskTime, setTaskTime] = useState('');
   const [taskDate, setTaskDate] = useState('');
+  const [taskTime, setTaskTime] = useState('');
   
 
   const handleSubmit = (e) => {
@@ -43,10 +43,10 @@ const CreateTask = () => {
   return (
     <form 
       onSubmit={handleSubmit} 
-      className="mt-20 flex flex-col justify-center items-center gap-5 bg-blue-400 p-20 w-2/4 h-1/3 m-auto rounded-lg"
+      className="mt-20 flex flex-col justify-center items-center gap-5 bg-blue-400 p-20 w-2/4 h-1/3 m-auto rounded-lg shadow-2xl"
     >
       <h1 
-        className="text-2xl text-[rgb(220,89,87)] font-bold text-center"
+        className="text-2xl text-white font-bold text-center"
         >CREATE NEW TASK
       </h1>
       <div className="flex flex-col justify-between items-center gap-2">
@@ -85,7 +85,7 @@ const CreateTask = () => {
       <button 
         className="bg-[rgb(220,89,87)] p-2 text-white rounded-lg hover:bg-white hover:text-[rgb(220,89,87)] mt-5" 
         type="submit" 
-        >Submit
+        >Create Task
       </button>
     </form>
   )
