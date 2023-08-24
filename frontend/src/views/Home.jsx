@@ -6,7 +6,7 @@ import axios from 'axios'
 
 
 
-const Home = () => {
+const Home = ({setShowNavBar}) => {
 
     const navigate = useNavigate();
 
@@ -15,17 +15,18 @@ const Home = () => {
 
     // Fetch tasks from the server on component mount
     useEffect(() => {
+        setShowNavBar(true)
         axios.get('http://localhost:3000/')
         .then(response => setTasks(response.data))
         .catch(err => console.log(err))
-    }, [])
+    }, [setShowNavBar])
 
     const handleDelete = (id) => {
         axios.delete(`http://localhost:3000/deletetask/${id}`)
         .catch(err => console.log(err))
         window.location.reload()
     }
-    
+
   return (
     <>
         <section className="flex flex-col gap-5 justify-between items-center">

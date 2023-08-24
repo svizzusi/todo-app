@@ -15,16 +15,21 @@ const NavBar = () => {
             alt="Logo" 
         />
         <div className="flex gap-5 items-center justify-around">
+            <Link 
+                to={'/home'} 
+                className="text-[rgb(220,89,87)] hover:text-white"
+                >Home
+            </Link>
             <button 
                 onClick={() => navigate('/createtask')} 
                 className="text-white p-1 bg-blue-400 rounded-lg hover:bg-white hover:text-blue-400"
                 >Add New Task
             </button>
-            <Link 
-                to={'/'} 
-                className="text-[rgb(220,89,87)] hover:text-red-300  mr-5"
-                >Home
-            </Link>
+            <button
+                className="text-white p-1 bg-[rgb(220,89,87)] rounded-lg hover:bg-white hover:text-[rgb(220,89,87)] mr-5"
+                onClick={() => navigate('/')}
+                >Logout
+            </button>
         </div>
     </nav>
   )
