@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
+// Function to generate time options for the select input
 const generateTimeOptions = () => {
   const options = [];
 
@@ -26,13 +27,15 @@ const generateTimeOptions = () => {
 
 const UpdateTask = () => {
 
-  const {id} = useParams()
+  const { id } = useParams()
   const navigate = useNavigate()
 
+  // State for task information
   const [taskName, setTaskName] = useState();
   const [taskDate, setTaskDate] = useState();
   const [taskTime, setTaskTime] = useState();
 
+  // Fetch task information from the server
   useEffect(() => {
     axios.get(`http://localhost:3000/gettask/${id}`)
       .then(res => {
@@ -43,6 +46,7 @@ const UpdateTask = () => {
       .catch(err => console.log(err));
   }, []);
 
+  // Handle update task submission
   const handleUpdate = (e) => {
     e.preventDefault()
     axios.put(`http://localhost:3000/updatetask/${id}`, {taskName, taskTime, taskDate})

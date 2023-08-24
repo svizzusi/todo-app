@@ -2,6 +2,7 @@ import { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
+// Function to generate time options for the select input
 const generateTimeOptions = () => {
   const options = [];
 
@@ -28,11 +29,12 @@ const CreateTask = () => {
 
   const navigate = useNavigate()
 
+  // State for task information
   const [taskName, setTaskName] = useState('');
   const [taskDate, setTaskDate] = useState('');
   const [taskTime, setTaskTime] = useState('');
   
-
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault()
     axios.post('http://localhost:3000/createtask', {taskName, taskTime, taskDate})

@@ -10,12 +10,22 @@ const Home = () => {
 
     const navigate = useNavigate();
 
+    // State to store the tasks
     const [tasks, setTasks] = useState([]);
+
+    // Fetch tasks from the server on component mount
     useEffect(() => {
         axios.get('http://localhost:3000/')
         .then(response => setTasks(response.data))
         .catch(err => console.log(err))
     }, [])
+
+    const handleDelete = (id) => {
+        axios.delete(`http://localhost:3000/deletetask/${id}`)
+        .catch(err => console.log(err))
+        window.location.reload()
+    }
+    
   return (
     <>
         <section className="flex flex-col gap-5 justify-between items-center">
@@ -37,7 +47,11 @@ const Home = () => {
                                 className="text-xl p-2 text-blue-400 hover:text-blue-200"
                                 ><AiOutlineEdit />
                             </button>
-                            <button className="text-xl p-5 text-[rgb(220,89,87)] hover:text-red-200"><BsTrash /></button>
+                            <button 
+                                onClick={() => handleDelete(task._id)}
+                                className="text-xl p-5 text-[rgb(220,89,87)] hover:text-red-200"
+                                ><BsTrash />
+                            </button>
                         </div>
                     </article>
                 )

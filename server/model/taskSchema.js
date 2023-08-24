@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 
+// Define a schema for the "Todo" collection
 const TodoSchema = new mongoose.Schema({
     taskName: {
         type: String,
@@ -15,4 +16,5 @@ const TodoSchema = new mongoose.Schema({
     }
 })
 
+// Export the model based on the defined schema
 module.exports = mongoose.model('Todo', TodoSchema)
