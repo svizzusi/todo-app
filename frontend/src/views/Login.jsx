@@ -3,6 +3,7 @@ const Login = () => {
     <form  
     className="mt-20 flex flex-col justify-center items-center gap-5 bg-blue-400 p-20 w-1/3 h-1/3 m-auto rounded-lg shadow-2xl"
   >
+    
     <h1 
       className="text-2xl text-white font-bold text-center"
       >LOG IN
