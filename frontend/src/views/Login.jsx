@@ -1,6 +1,24 @@
+import { Link, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import axios from 'axios'
+
 const Login = () => {
+
+  const navigate = useNavigate()
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    axios.post('http://localhost:3000/login', {email, password})
+    .then( () => navigate('/home'))
+    .catch(err => console.log(err))
+  }
+
   return (
     <form  
+    onSubmit={handleSubmit}
     className="mt-20 flex flex-col justify-center items-center gap-5 bg-blue-400 p-20 w-1/3 h-1/3 m-auto rounded-lg shadow-2xl"
   >
     
@@ -14,7 +32,9 @@ const Login = () => {
       <input
         className="bg-white rounded-lg w-96 p-2" 
         type="text" 
-        placeholder="Email address" 
+        placeholder="Email address"
+        onChange ={(e) => setEmail(e.target.value)}
+        value={email}
         required
       />
     </div>
@@ -23,7 +43,9 @@ const Login = () => {
       <label className="text-lg text-black ">Password</label>
       <input
         className="bg-white rounded-lg w-96 p-2"
-        placeholder="Password" 
+        placeholder="Password"
+        onChange = {(e) => setPassword(e.target.value)} 
+        value={password}
         type="text" 
         required
       />
@@ -34,6 +56,8 @@ const Login = () => {
       type="submit" 
       >Login
     </button>
+
+    <p>Do you need to create an account? <Link to='/signup'>Sign Up</Link></p>
 
   </form>
   )

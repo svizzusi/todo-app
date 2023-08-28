@@ -4,6 +4,7 @@ const app = express() //Create the instance of express
 const mongoose = require('mongoose') //Require the mongoose module
 const cors = require('cors') //Cross Origin Resource Sharing - allows frontend to talk to the server
 const todoModel = require('./model/taskSchema.js') //Require the schema data structure
+const userModel = require('./model/userSchema.js') //Require the schema data structure
 require('dotenv').config({path: './config/.env'}) //require the environment variable
 
 app.use(cors()) //Use cors middleware in the express app
@@ -26,6 +27,39 @@ app.post('/createtask', (req, res) => {
     .catch(err => {
         res.json(err)
         console.log(err)
+    })
+})
+
+app.post('/signup', (req, res) => {
+    const {name, email, password} = req.body
+    userModel.findOne(email)
+    .then( user => {
+        if (user) {
+            res.json({
+                message: "User already exists, login instead"
+            })
+        } else {
+            userModel.create({name, email, password})
+            .then( res => res.json({message: 'Account created successfully'}))
+            .catch((err) => {
+                res.json(err)
+            })
+        }
+    })
+})
+
+app.post('/login', (req, res) => {
+    const {name, email, password} = req.body
+    userModel.findOne(email)
+    .then( user => {
+        if (user) {
+            if (user.password === password) {
+                res.json({
+                    success: true,
+                    message: 'Login successful'
+                })
+            }
+        }
     })
 })
 
