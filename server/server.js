@@ -30,35 +30,47 @@ app.post('/createtask', (req, res) => {
     })
 })
 
+// Route for user signup
 app.post('/signup', (req, res) => {
-    const {name, email, password} = req.body
-    userModel.findOne(email)
+    const {name, email, password} = req.body // Destructure user data from request body
+    userModel.findOne(email) // Check if a user with the given email already exists
     .then( user => {
         if (user) {
             res.json({
                 message: "User already exists, login instead"
-            })
+            }) // Send a response indicating that the user already exists
         } else {
-            userModel.create({name, email, password})
-            .then( res => res.json({message: 'Account created successfully'}))
+            userModel.create({name, email, password}) // Create a new user
+            .then( res => res.json({message: 'Account created successfully'})) // Send success response
             .catch((err) => {
-                res.json(err)
+                res.json(err) // Send error response if user creation fails
             })
         }
     })
 })
 
+// Route for user login
 app.post('/login', (req, res) => {
-    const {name, email, password} = req.body
-    userModel.findOne(email)
+    const {name, email, password} = req.body // Destructure user data from request body
+    userModel.findOne(email) // Find a user with the given email
     .then( user => {
         if (user) {
             if (user.password === password) {
                 res.json({
                     success: true,
                     message: 'Login successful'
-                })
+                }) // Send success response if login is successful
+            } else {
+                res.json({
+                    success: false,
+                    message: 'Incorrect username or password'
+                }) // Send response indicating incorrect username or password
             }
+        } else {
+            res.json({
+                success: false,
+                message: 'Proceed to sign up'
+            }) // Send response indicating that the user does not exist
         }
     })
 })
