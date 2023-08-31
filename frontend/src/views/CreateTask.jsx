@@ -54,7 +54,7 @@ const CreateTask = () => {
       <div className="flex flex-col justify-between items-center gap-2">
         <label className="text-lg text-black ">Task Name</label>
         <input
-          className="bg-white rounded-lg w-96 p-2" 
+          className="bg-white rounded-lg w-full p-2" 
           type="text" 
           placeholder="Task Name" 
           onChange={(e) => setTaskName(e.target.value)} 
@@ -65,7 +65,7 @@ const CreateTask = () => {
       <div className="flex flex-col justify-between items-center gap-2">
         <label className="text-lg text-black ">Task Date</label>
         <input
-          className="bg-white rounded-lg w-96 p-2" 
+          className="bg-white rounded-lg w-full p-2" 
           type="date" 
           onChange={(e) => setTaskDate(e.target.value)} 
           value={taskDate} 
@@ -75,7 +75,7 @@ const CreateTask = () => {
       <div className="flex flex-col justify-between items-center gap-2">
         <label className="text-lg text-black">Task Time</label>
         <select
-          className="bg-white rounded-lg w-96 p-2"
+          className="bg-white rounded-lg w-full p-2"
           onChange={(e) => setTaskTime(e.target.value)}
           value={taskTime}
           required

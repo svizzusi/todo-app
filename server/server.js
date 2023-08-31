@@ -32,27 +32,50 @@ app.post('/createtask', (req, res) => {
 
 // Route for user signup
 app.post('/signup', (req, res) => {
-    const {name, email, password} = req.body // Destructure user data from request body
-    userModel.findOne(email) // Check if a user with the given email already exists
-    .then( user => {
-        if (user) {
-            res.json({
-                message: "User already exists, login instead"
-            }) // Send a response indicating that the user already exists
-        } else {
-            userModel.create({name, email, password}) // Create a new user
-            .then( res => res.json({message: 'Account created successfully'})) // Send success response
-            .catch((err) => {
-                res.json(err) // Send error response if user creation fails
-            })
-        }
-    })
-})
+    const { name, email, password } = req.body; // Destructure user data from request body
+    
+    userModel.findOne({ email: email })
+        .then(user => {
+            if (user) {
+                return res.json({
+                    message: "User already exists, login instead",
+                    success: false,
+                }); // Send a response indicating that the user already exists
+            }
+
+            // Create a new user
+            return userModel.create({ name, email, password })
+                .then(newUser => {
+                    return res.json({
+                        message: 'Account created successfully',
+                        success: true,
+                        user: newUser // Include the newly created user in the response
+                    });
+                })
+                .catch(err => {
+                    console.log(err);
+                    return res.status(500).json({
+                        message: 'Internal Server Error',
+                        error: err,
+                        success: false,
+                    }); // Send error response if user creation fails
+                });
+        })
+        .catch(err => {
+            console.log(err);
+            return res.status(500).json({
+                message: 'Internal Server Error',
+                error: err,
+                success: false,
+            });
+        });
+});
+
 
 // Route for user login
 app.post('/login', (req, res) => {
     const {name, email, password} = req.body // Destructure user data from request body
-    userModel.findOne(email) // Find a user with the given email
+    userModel.findOne({ email: email }) // Find a user with the given email
     .then( user => {
         if (user) {
             if (user.password === password) {

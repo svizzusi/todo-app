@@ -12,7 +12,10 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     axios.post('http://localhost:3000/login', {email, password})
-    .then( () => navigate('/home'))
+    .then( (res) => {
+      navigate('/home')
+      console.log(res)
+    })
     .catch(err => console.log(err))
   }
 
@@ -30,7 +33,7 @@ const Login = () => {
     <div className="flex flex-col justify-between items-center gap-2">
       <label className="text-lg text-black ">Email</label>
       <input
-        className="bg-white rounded-lg w-96 p-2" 
+        className="bg-white rounded-lg w-full p-2" 
         type="text" 
         placeholder="Email address"
         onChange ={(e) => setEmail(e.target.value)}
@@ -42,7 +45,7 @@ const Login = () => {
     <div className="flex flex-col justify-between items-center gap-2">
       <label className="text-lg text-black ">Password</label>
       <input
-        className="bg-white rounded-lg w-96 p-2"
+        className="bg-white rounded-lg w-full p-2"
         placeholder="Password"
         onChange = {(e) => setPassword(e.target.value)} 
         value={password}
