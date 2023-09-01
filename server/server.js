@@ -71,7 +71,6 @@ app.post('/signup', (req, res) => {
         });
 });
 
-
 // Route for user login
 app.post('/login', (req, res) => {
     const {name, email, password} = req.body // Destructure user data from request body
