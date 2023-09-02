@@ -16,13 +16,13 @@ const Home = ({setShowNavBar}) => {
     // Fetch tasks from the server on component mount
     useEffect(() => {
         setShowNavBar(true)
-        axios.get('http://localhost:3000/')
+        axios.get('http://localhost:3000/todos/')
         .then(response => setTasks(response.data))
         .catch(err => console.log(err))
     }, [setShowNavBar])
 
     const handleDelete = (id) => {
-        axios.delete(`http://localhost:3000/deletetask/${id}`)
+        axios.delete(`http://localhost:3000/todos/deletetask/${id}`)
         .catch(err => console.log(err))
         window.location.reload()
     }

@@ -15,7 +15,6 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,7 +29,7 @@ const Signup = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:3000/signup', { name, email, password });
+      const response = await axios.post('http://localhost:3000/users/signup', { name, email, password });
       console.log(response);
       console.log(response.data);
       console.log(response.data.message)

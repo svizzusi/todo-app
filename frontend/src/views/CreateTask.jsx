@@ -14,9 +14,9 @@ const generateTimeOptions = () => {
     }
   }
 
-  for (let hour = 1; hour < 12; hour++) {
+  for (let hour = 1; hour <= 12; hour++) {
     for (let minute = 0; minute < 60; minute += 15) {
-      const time12 = `${hour}:${minute.toString().padStart(2, '0')}`;
+      const time12 = `${hour === 0 ? 12 : hour}:${minute.toString().padStart(2, '0')}`;
       const pmOption = <option key={`${time12}PM`} value={`${time12} PM`}>{time12} PM</option>;
       options.push(pmOption);
     }
@@ -37,7 +37,7 @@ const CreateTask = () => {
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault()
-    axios.post('http://localhost:3000/createtask', {taskName, taskTime, taskDate})
+    axios.post('http://localhost:3000/todos/createtask', {taskName, taskTime, taskDate})
     .then( () => navigate('/') )
     .catch(err => console.log(err)) 
   }

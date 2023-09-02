@@ -11,7 +11,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    axios.post('http://localhost:3000/login', {email, password})
+    axios.post('http://localhost:3000/users/login', {email, password})
     .then( (res) => {
       navigate('/home')
       console.log(res)
@@ -49,7 +49,7 @@ const Login = () => {
         placeholder="Password"
         onChange = {(e) => setPassword(e.target.value)} 
         value={password}
-        type="text" 
+        type="password" 
         required
       />
     </div>
