@@ -101,7 +101,7 @@ const Signup = () => {
           <label className="text-lg text-black ">Password</label>
           <input
             className="bg-white rounded-lg p-2 w-full"
-            type="text"
+            type="password"
             placeholder="Password" 
             onChange={(e) => setPassword(e.target.value)}
             value={password}
@@ -113,7 +113,7 @@ const Signup = () => {
           <label className="text-lg text-black "> Confirm Password</label>
           <input
             className="bg-white rounded-lg p-2 w-full"
-            type="text"
+            type="password"
             placeholder="Comfirm Password" 
             onChange={(e) => setConfirmPassword(e.target.value)}
             value={confirmPassword}
