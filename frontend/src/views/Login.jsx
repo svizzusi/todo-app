@@ -1,13 +1,17 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 const Login = () => {
 
   const navigate = useNavigate()
-
+  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  
+  useEffect(() => {
+    window.sessionStorage.removeItem('userName')
+  }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -15,6 +19,7 @@ const Login = () => {
     .then( (res) => {
       navigate('/home')
       console.log(res)
+      window.sessionStorage.setItem('userName', res.data.userName)
     })
     .catch(err => console.log(err))
   }

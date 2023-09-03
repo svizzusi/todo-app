@@ -7,6 +7,10 @@ const Landing = ({ setShowNavBar }) => {
         setShowNavBar(false)
     }, [setShowNavBar])
 
+    useEffect(() => {
+        window.sessionStorage.removeItem('userName')
+      }, [])
+
   return (
     <div className='flex flex-col justify-around items-center gap-4 mt-24'>
         <h1 className='text-5xl font-bold pb-10'>Create Your VERY OWN Todo List</h1>

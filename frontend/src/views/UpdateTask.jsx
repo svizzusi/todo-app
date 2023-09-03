@@ -52,7 +52,7 @@ const UpdateTask = () => {
     axios.put(`http://localhost:3000/todos/updatetask/${id}`, {taskName, taskTime, taskDate})
     .then( (res) => {
       console.log(res)
-      navigate('/')
+      navigate('/home')
       // setTaskName
       // setTaskDate
       // setTaskTime

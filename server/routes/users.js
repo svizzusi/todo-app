@@ -52,7 +52,8 @@ router.post('/login', (req, res) => {
             if (user.password === password) {
                 res.json({
                     success: true,
-                    message: 'Login successful'
+                    message: 'Login successful',
+                    userName: user.name
                 }) // Send success response if login is successful
             } else {
                 res.json({

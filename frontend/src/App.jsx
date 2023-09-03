@@ -1,14 +1,12 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Home from './views/Home'
 import CreateTask from './views/CreateTask'
 import NavBar from './components/NavBar'
-import UpdateTask from './views/Updatetask'
+import UpdateTask from './views/UpdateTask'
 import Landing from './views/Landing'
 import Login from './views/Login'
 import Signup from './views/Signup'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   

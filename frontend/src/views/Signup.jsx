@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { toast,ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -8,6 +8,10 @@ import 'react-toastify/dist/ReactToastify.css';
 const Signup = () => {
 
   const navigate = useNavigate()
+
+  useEffect(() => {
+    window.sessionStorage.removeItem('userName')
+  }, [])
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');

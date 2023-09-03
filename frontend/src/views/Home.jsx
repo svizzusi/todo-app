@@ -4,14 +4,21 @@ import { AiOutlineEdit } from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
-
-
 const Home = ({setShowNavBar}) => {
 
     const navigate = useNavigate();
 
     // State to store the tasks
     const [tasks, setTasks] = useState([]);
+   
+    // State to store the User name
+    const [userName, setUserName] = useState();
+
+    // Fetch UserName from the server on component mount
+    useEffect(() => {
+        const name = window.sessionStorage.getItem('userName')
+        setUserName(name)
+    }, []);
 
     // Fetch tasks from the server on component mount
     useEffect(() => {
@@ -31,7 +38,7 @@ const Home = ({setShowNavBar}) => {
     <>
         <section className="flex flex-col gap-5 justify-between items-center">
             <h2 className="text-5xl font-bold pt-10">Hello</h2>
-            <h2 className="text-5xl font-bold pb-10">Stephen!</h2>
+            <h2 className="text-5xl font-bold pb-10">{userName}!</h2>
             {tasks.map((task) => {
                 return (
                     <article 

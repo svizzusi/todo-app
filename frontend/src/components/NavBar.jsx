@@ -2,8 +2,12 @@ import logo from "../assets/images/logo.png"
 import { Link, useNavigate } from 'react-router-dom'
 
 
-
 const NavBar = () => {
+    
+    const handleLogout = () => {
+        navigate('/');
+        window.sessionStorage.removeItem('userName');
+    }
 
     const navigate = useNavigate()
 
@@ -27,7 +31,7 @@ const NavBar = () => {
             </button>
             <button
                 className="text-white p-1 bg-[rgb(220,89,87)] rounded-lg hover:bg-white hover:text-[rgb(220,89,87)] mr-5"
-                onClick={() => navigate('/')}
+                onClick={handleLogout}
                 >Logout
             </button>
         </div>

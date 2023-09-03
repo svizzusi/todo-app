@@ -38,7 +38,7 @@ const CreateTask = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     axios.post('http://localhost:3000/todos/createtask', {taskName, taskTime, taskDate})
-    .then( () => navigate('/') )
+    .then( () => navigate('/home') )
     .catch(err => console.log(err)) 
   }
 
