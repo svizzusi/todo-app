@@ -9,6 +9,7 @@ const Landing = ({ setShowNavBar }) => {
 
     useEffect(() => {
         window.sessionStorage.removeItem('userName')
+        window.sessionStorage.removeItem('userId')
       }, [])
 
   return (

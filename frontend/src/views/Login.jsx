@@ -11,15 +11,18 @@ const Login = () => {
   
   useEffect(() => {
     window.sessionStorage.removeItem('userName')
+    window.sessionStorage.removeItem('userId')
   }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault()
     axios.post('http://localhost:3000/users/login', {email, password})
+    
     .then( (res) => {
       navigate('/home')
       console.log(res)
       window.sessionStorage.setItem('userName', res.data.userName)
+      window.sessionStorage.setItem('userId', res.data.id)
     })
     .catch(err => console.log(err))
   }

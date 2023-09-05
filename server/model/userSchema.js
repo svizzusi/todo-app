@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-// Define a schema for the "Todo" collection
+// Define a schema for the "User" collection
 const UserSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -14,6 +14,10 @@ const UserSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
+    },
+    savedTodos: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Todo",
     }
 })
 

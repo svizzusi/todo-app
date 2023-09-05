@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { toast,ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -11,6 +11,7 @@ const Signup = () => {
 
   useEffect(() => {
     window.sessionStorage.removeItem('userName')
+    window.sessionStorage.removeItem('userId')
   }, [])
 
   const [name, setName] = useState('');
@@ -33,18 +34,23 @@ const Signup = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:3000/users/signup', { name, email, password });
-      console.log(response);
-      console.log(response.data);
-      console.log(response.data.message)
-      console.log(response.data.success)
-      if (response.data.success === false) {
-        toast(response.data.message)
+      const res = await axios.post('http://localhost:3000/users/signup', { name, email, password });
+      console.log(res);
+      console.log(res.data);
+      console.log(res.data.message)
+      console.log(res.data.success)
+      
+      if (res.data.success === false) {
+        toast(res.data.message)
       } else {
+        window.sessionStorage.setItem('userName', res.data.userName)
+        window.sessionStorage.setItem('userId', res.data.id)
         navigate('/home');
         // Redirect or show success message
       }
+
       setLoading(false);
+
     } catch (err) {
       console.error(err);
       setLoading(false);

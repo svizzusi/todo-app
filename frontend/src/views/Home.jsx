@@ -13,18 +13,23 @@ const Home = ({setShowNavBar}) => {
    
     // State to store the User name
     const [userName, setUserName] = useState();
+    
+    // State to store the User id
+    const [userId, setUserId] = useState();
 
     // Fetch UserName from the server on component mount
     useEffect(() => {
         const name = window.sessionStorage.getItem('userName')
+        const id = window.sessionStorage.getItem('userId')
         setUserName(name)
+        setUserId(id)
     }, []);
 
     // Fetch tasks from the server on component mount
     useEffect(() => {
         setShowNavBar(true)
-        axios.get('http://localhost:3000/todos/')
-        .then(response => setTasks(response.data))
+        axios.get(`http://localhost:3000/todos/${userId}`)
+        .then(response => console.log(response.data))
         .catch(err => console.log(err))
     }, [setShowNavBar])
 
@@ -38,7 +43,7 @@ const Home = ({setShowNavBar}) => {
     <>
         <section className="flex flex-col gap-5 justify-between items-center">
             <h2 className="text-5xl font-bold pt-10">Hello</h2>
-            <h2 className="text-5xl font-bold pb-10">{userName}!</h2>
+            <h2 className="text-5xl font-bold pb-10 text-transform: capitalize">{userName}!</h2>
             {tasks.map((task) => {
                 return (
                     <article 

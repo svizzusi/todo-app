@@ -13,6 +13,11 @@ const TodoSchema = new mongoose.Schema({
     taskTime: {
         type: String,
         required: true,
+    },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
     }
 })
 

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
@@ -33,11 +33,18 @@ const CreateTask = () => {
   const [taskName, setTaskName] = useState('');
   const [taskDate, setTaskDate] = useState('');
   const [taskTime, setTaskTime] = useState('');
+  const [userId, setUserId] = useState('');
   
+  useEffect(() => {
+    const id = window.sessionStorage.getItem('userId')
+    setUserId(id)
+  },[])
+
+
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault()
-    axios.post('http://localhost:3000/todos/createtask', {taskName, taskTime, taskDate})
+    axios.post('http://localhost:3000/todos/createtask', {taskName, taskTime, taskDate, userId})
     .then( () => navigate('/home') )
     .catch(err => console.log(err)) 
   }
@@ -86,7 +93,7 @@ const CreateTask = () => {
       </div>
       <button 
         className="bg-[rgb(220,89,87)] p-2 text-white rounded-lg hover:bg-white hover:text-[rgb(220,89,87)] mt-5" 
-        type="submit" 
+        type="submit"
         >Create Task
       </button>
     </form>

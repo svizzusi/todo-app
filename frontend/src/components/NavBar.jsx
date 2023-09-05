@@ -4,12 +4,13 @@ import { Link, useNavigate } from 'react-router-dom'
 
 const NavBar = () => {
     
+    const navigate = useNavigate()
+    
     const handleLogout = () => {
         navigate('/');
         window.sessionStorage.removeItem('userName');
     }
 
-    const navigate = useNavigate()
 
   return (
     <nav className="flex justify-between items-center p-5 bg-black">

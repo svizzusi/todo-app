@@ -21,7 +21,8 @@ router.post('/signup', (req, res) => {
                     return res.json({
                         message: 'Account created successfully',
                         success: true,
-                        user: newUser // Include the newly created user in the response
+                        userName: newUser.name, // Include the newly created user in the response
+                        id: newUser._id
                     });
                 })
                 .catch(err => {
@@ -53,7 +54,8 @@ router.post('/login', (req, res) => {
                 res.json({
                     success: true,
                     message: 'Login successful',
-                    userName: user.name
+                    userName: user.name,
+                    id: user._id
                 }) // Send success response if login is successful
             } else {
                 res.json({

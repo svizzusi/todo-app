@@ -4,8 +4,9 @@ const todoSchema = require('../model/todoSchema.js');
 
 
 // Express route to the root route for fetching all tasks
-router.get('/', (req, res) => {
-    todoSchema.find({}) // Retrieve all Data from collection
+router.get('/:id', (req, res) => {
+    const id = req.params.id // Extract the ID parameter from the request
+    todoSchema.findById(id) // Retrieve all Data from collection
     .then(Todo => res.json(Todo)) // Converts data to json and sends response
     .catch(err => {
         res.json(err) //send error response as json
