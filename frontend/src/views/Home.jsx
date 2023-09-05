@@ -25,13 +25,26 @@ const Home = ({setShowNavBar}) => {
         setUserId(id)
     }, []);
 
+    useEffect(() => {
+        setShowNavBar(true);
+    }, [setShowNavBar]);
+
     // Fetch tasks from the server on component mount
     useEffect(() => {
-        setShowNavBar(true)
-        axios.get(`http://localhost:3000/todos/${userId}`)
-        .then(response => console.log(response.data))
-        .catch(err => console.log(err))
-    }, [setShowNavBar])
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`http://localhost:3000/todos/todo/${userId}`);
+                console.log(response.data);
+                setTasks(response.data);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+    
+        if (userId) {
+            fetchData();
+        }
+    }, [userId]);
 
     const handleDelete = (id) => {
         axios.delete(`http://localhost:3000/todos/deletetask/${id}`)
