@@ -1,76 +1,86 @@
-const express = require('express')
-const router = express.Router()
-const userSchema = require('../model/userSchema.js');
+// Import required libraries and modules
+const express = require('express'); // Import the Express.js framework
+const bcrypt = require('bcrypt'); // Import bcrypt for password hashing
+const router = express.Router(); // Create an Express router
+const userSchema = require('../model/userSchema.js'); // Import the user schema
 
 // Route for user signup
-router.post('/signup', (req, res) => {
-    const { name, email, password } = req.body; // Destructure user data from request body
-    
-    userSchema.findOne({ email: email })
-        .then(user => {
-            if (user) {
-                return res.json({
-                    message: "User already exists, login instead",
-                    success: false,
-                }); // Send a response indicating that the user already exists
-            }
+router.post('/signup', async (req, res) => {
+    try {
+        const { name, email, password } = req.body; // Destructure user data from the request body
 
-            // Create a new user
-            return userSchema.create({ name, email, password })
-                .then(newUser => {
-                    return res.json({
-                        message: 'Account created successfully',
-                        success: true,
-                        userName: newUser.name, // Include the newly created user in the response
-                        id: newUser._id
-                    });
-                })
-                .catch(err => {
-                    console.log(err);
-                    return res.status(500).json({
-                        message: 'Internal Server Error',
-                        error: err,
-                        success: false,
-                    }); // Send error response if user creation fails
-                });
-        })
-        .catch(err => {
-            console.log(err);
-            return res.status(500).json({
-                message: 'Internal Server Error',
-                error: err,
+        const existingUser = await userSchema.findOne({ email: email }); // Check if a user with the same email already exists in the database
+
+        if (existingUser) {
+            return res.json({
+                message: "User already exists, login instead",
                 success: false,
-            });
+            }); // Send a response indicating that the user already exists
+        }
+
+        const hashPassword = await bcrypt.hash(password, 10); // Hash the user's password
+
+        const newUser = await userSchema.create({ name, email, password: hashPassword }); // Create a new user with hashed password
+
+        return res.json({
+            message: 'Account created successfully',
+            success: true,
+            userName: newUser.name, // Include the newly created user in the response
+            id: newUser._id
         });
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            message: 'Internal Server Error',
+            error: err,
+            success: false,
+        }); // Send an error response if user creation fails
+    }
 });
 
 // Route for user login
-router.post('/login', (req, res) => {
-    const {name, email, password} = req.body // Destructure user data from request body
-    userSchema.findOne({ email: email }) // Find a user with the given email
-    .then( user => {
+router.post('/login', async (req, res) => {
+    try {
+        const { email, password } = req.body; // Destructure user data from the request body
+
+        const user = await userSchema.findOne({ email: email }); // Find a user with the given email
+
         if (user) {
-            if (user.password === password) {
+            const isPasswordValid = await bcrypt.compare(password, user.password); // Compare the provided password with the hashed password in the database
+            if (isPasswordValid) {
                 res.json({
                     success: true,
                     message: 'Login successful',
                     userName: user.name,
                     id: user._id
-                }) // Send success response if login is successful
+                }); // Send a success response if login is successful
             } else {
                 res.json({
                     success: false,
                     message: 'Incorrect username or password'
-                }) // Send response indicating incorrect username or password
+                }); // Send a response indicating incorrect username or password
             }
         } else {
             res.json({
                 success: false,
-                message: 'Proceed to sign up'
-            }) // Send response indicating that the user does not exist
+                message: 'User does not exist'
+            }); // Send a response indicating that the user does not exist
         }
-    })
-})
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            message: 'Internal Server Error',
+            error: err,
+            success: false,
+        }); // Send an error response if an error occurs during the login process
+    }
+});
 
-const userRouter = router
-module.exports = userRouter
+const userRouter = router;
+module.exports = userRouter; // Export the userRouter for use in other parts of the application
+
+
+
+
+
+

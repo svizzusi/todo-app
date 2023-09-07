@@ -12,7 +12,7 @@ const Home = ({setShowNavBar}) => {
     const [tasks, setTasks] = useState([]);
    
     // State to store the User name
-    const [userName, setUserName] = useState();
+    const [userName, setUserName] = useState('');
     
     // State to store the User id
     const [userId, setUserId] = useState();
