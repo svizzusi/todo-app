@@ -31,9 +31,9 @@ const UpdateTask = () => {
   const navigate = useNavigate()
 
   // State for task information
-  const [taskName, setTaskName] = useState();
-  const [taskDate, setTaskDate] = useState();
-  const [taskTime, setTaskTime] = useState();
+  const [taskName, setTaskName] = useState('');
+  const [taskDate, setTaskDate] = useState('');
+  const [taskTime, setTaskTime] = useState('');
 
   // Fetch task information from the server
   useEffect(() => {
@@ -53,9 +53,6 @@ const UpdateTask = () => {
     .then( (res) => {
       console.log(res)
       navigate('/home')
-      // setTaskName
-      // setTaskDate
-      // setTaskTime
     } )
     .catch(err => console.log(err)) 
   }
