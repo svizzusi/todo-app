@@ -28,6 +28,7 @@ router.post('/signup', async (req, res) => {
             userName: newUser.name, // Include the newly created user in the response
             id: newUser._id
         });
+        
     } catch (err) {
         console.log(err);
         return res.status(500).json({
